@@ -1,5 +1,9 @@
 import Link from "next/link";
-import type { ButtonHTMLAttributes, ReactNode } from "react";
+import type {
+  AnchorHTMLAttributes,
+  ButtonHTMLAttributes,
+  ReactNode,
+} from "react";
 
 type Variant = "primary" | "secondary" | "tertiary" | "text";
 type Size = "md" | "lg";
@@ -87,7 +91,10 @@ export function Button({
   );
 }
 
-type ButtonLinkProps = CommonProps & { href: string };
+type ButtonLinkProps = CommonProps &
+  Omit<AnchorHTMLAttributes<HTMLAnchorElement>, keyof CommonProps | "href"> & {
+    href: string;
+  };
 
 export function ButtonLink({
   variant,
@@ -98,12 +105,14 @@ export function ButtonLink({
   className,
   children,
   href,
+  ...props
 }: ButtonLinkProps) {
   return (
     <Link
       href={href}
       data-hover={forceHover || undefined}
       className={buttonClasses({ variant, size, className })}
+      {...props}
     >
       <Content icon={icon} iconPosition={iconPosition}>
         {children}
