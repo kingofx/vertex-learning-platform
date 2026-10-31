@@ -5,7 +5,8 @@ import { course } from './course'
 import { courseModule } from './course-module'
 import { instructor } from './instructor'
 import { lesson } from './lesson'
+import { video } from './video'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [course, courseModule, lesson, instructor, category],
+  types: [course, courseModule, lesson, instructor, category, video],
 }

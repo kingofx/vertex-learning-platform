@@ -15,6 +15,27 @@
 export declare const internalGroqTypeReferenceTo: unique symbol;
 
 // Source: schema.json
+export type Video = {
+  _id: string;
+  _type: "video";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  url?: string;
+  chapters?: Array<{
+    startSeconds?: number;
+    label?: string;
+    _type: "chapter";
+    _key: string;
+  }>;
+  chunks?: Array<{
+    startSeconds?: number;
+    text?: string;
+    _type: "chunk";
+    _key: string;
+  }>;
+};
+
 export type SanityImageAssetReference = {
   _ref: string;
   _type: "reference";
@@ -303,6 +324,7 @@ export type Geopoint = {
 };
 
 export type AllSanitySchemaTypes =
+  | Video
   | SanityImageAssetReference
   | Lesson
   | SanityImageCrop
@@ -556,6 +578,46 @@ export type INSTRUCTOR_SLUGS_QUERY_RESULT = Array<{
   slug: string | null;
 }>;
 
+// Source: src/sanity/lib/queries.ts
+// Variable: SEARCH_LESSONS_QUERY
+// Query: *[_type == "lesson" && slug.current in $slugs] {    _id,    title,    "slug": slug.current,    summary,    videoUrl,    "thumbnail": thumbnail { asset, hotspot, crop, alt },    "durationSeconds": duration,    keyPoints,    "course": *[_type == "course" && references(^._id)][0] {      title,      "slug": slug.current,      coverImage { asset, hotspot, crop, alt },      "modules": modules[] {        title,        "lessonSlugs": lessons[]->slug.current      }    },    "video": *[_type == "video" && url == ^.videoUrl][0] {      "chapters": chapters[] { startSeconds, label },      "chunkSeconds": chunks[].startSeconds    }  }
+export type SEARCH_LESSONS_QUERY_RESULT = Array<{
+  _id: string;
+  title: string | null;
+  slug: string | null;
+  summary: string | null;
+  videoUrl: string | null;
+  thumbnail: {
+    asset: SanityImageAssetReference | null;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+    alt: string | null;
+  } | null;
+  durationSeconds: number | null;
+  keyPoints: Array<string> | null;
+  course: {
+    title: string | null;
+    slug: string | null;
+    coverImage: {
+      asset: SanityImageAssetReference | null;
+      hotspot: SanityImageHotspot | null;
+      crop: SanityImageCrop | null;
+      alt: string | null;
+    } | null;
+    modules: Array<{
+      title: string | null;
+      lessonSlugs: Array<string | null> | null;
+    }> | null;
+  } | null;
+  video: {
+    chapters: Array<{
+      startSeconds: number | null;
+      label: string | null;
+    }> | null;
+    chunkSeconds: Array<number | null> | null;
+  } | null;
+}>;
+
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
@@ -568,5 +630,6 @@ declare module "@sanity/client" {
     '\n  *[_type == "course" && defined(slug.current)]{ "slug": slug.current }\n': COURSE_SLUGS_QUERY_RESULT;
     '\n  *[_type == "lesson" && defined(slug.current)]{ "slug": slug.current }\n': LESSON_SLUGS_QUERY_RESULT;
     '\n  *[_type == "instructor" && defined(slug.current)]{ "slug": slug.current }\n': INSTRUCTOR_SLUGS_QUERY_RESULT;
+    '\n  *[_type == "lesson" && slug.current in $slugs] {\n    _id,\n    title,\n    "slug": slug.current,\n    summary,\n    videoUrl,\n    "thumbnail": thumbnail { asset, hotspot, crop, alt },\n    "durationSeconds": duration,\n    keyPoints,\n    "course": *[_type == "course" && references(^._id)][0] {\n      title,\n      "slug": slug.current,\n      coverImage { asset, hotspot, crop, alt },\n      "modules": modules[] {\n        title,\n        "lessonSlugs": lessons[]->slug.current\n      }\n    },\n    "video": *[_type == "video" && url == ^.videoUrl][0] {\n      "chapters": chapters[] { startSeconds, label },\n      "chunkSeconds": chunks[].startSeconds\n    }\n  }\n': SEARCH_LESSONS_QUERY_RESULT;
   }
 }

@@ -23,3 +23,12 @@ const levels: Record<string, string> = {
 export function formatLevel(level: string | null | undefined) {
   return level ? (levels[level] ?? level) : "";
 }
+
+/** 765 -> "12:45", 4125 -> "1:08:45". */
+export function formatClock(seconds: number | null | undefined) {
+  const total = Math.max(0, Math.round(seconds ?? 0));
+  const h = Math.floor(total / 3600);
+  const m = Math.floor((total % 3600) / 60);
+  const s = String(total % 60).padStart(2, "0");
+  return h > 0 ? `${h}:${String(m).padStart(2, "0")}:${s}` : `${String(m).padStart(2, "0")}:${s}`;
+}

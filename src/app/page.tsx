@@ -74,11 +74,15 @@ export default function Home() {
             >
               Explore Courses
             </ButtonLink>
-            <label className="mt-12 flex h-[84px] w-full max-w-[740px] items-center gap-4 rounded-lg border border-neutral-100 bg-white px-6 text-neutral-500 shadow-md focus-within:border-primary-400">
+            <form action="/search" role="search" className="mt-12 w-full max-w-[740px]">
+            <label className="flex h-[84px] w-full items-center gap-4 rounded-lg border border-neutral-100 bg-white px-6 text-neutral-500 shadow-md focus-within:border-primary-400">
               <span className="sr-only">Search your learning</span>
               <Icon name="search" size={26} />
               <input
                 type="search"
+                name="q"
+                required
+                maxLength={200}
                 placeholder="Ask anything about your learning…"
                 className="min-w-0 flex-1 bg-transparent text-body-lg text-neutral-900 placeholder:text-neutral-500 focus-visible:outline-none"
               />
@@ -86,6 +90,7 @@ export default function Home() {
                 ⌘ K
               </kbd>
             </label>
+            </form>
           </section>
 
           <section className="px-5 pt-14 sm:px-12">
