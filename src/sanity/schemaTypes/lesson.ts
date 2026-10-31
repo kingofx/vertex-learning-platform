@@ -46,7 +46,7 @@ export const lesson = defineType({
           }),
     }),
     defineField({
-      name: 'poster',
+      name: 'thumbnail',
       type: 'image',
       options: { hotspot: true },
       fields: [
@@ -58,7 +58,7 @@ export const lesson = defineType({
       ],
     }),
     defineField({
-      name: 'durationSeconds',
+      name: 'duration',
       type: 'number',
       description: 'Video length in seconds.',
       validation: (rule) => rule.required().integer().min(1),
@@ -140,6 +140,7 @@ export const lesson = defineType({
                   { title: 'Repository', value: 'repository' },
                   { title: 'Video', value: 'video' },
                   { title: 'Download', value: 'download' },
+                  { title: 'Link', value: 'link' },
                 ],
                 layout: 'radio',
               },
@@ -165,6 +166,6 @@ export const lesson = defineType({
     }),
   ],
   preview: {
-    select: { title: 'title', subtitle: 'summary', media: 'poster' },
+    select: { title: 'title', subtitle: 'summary', media: 'thumbnail' },
   },
 })
