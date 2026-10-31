@@ -1,4 +1,6 @@
+import { Show, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
+import { Suspense } from "react";
 import { CourseCard } from "@/components/ui/cards";
 import {
   DockerLogo,
@@ -86,12 +88,19 @@ export default function Home() {
             >
               <Icon name="bell" size={22} />
             </button>
-            <span
-              aria-hidden="true"
-              className="flex size-12 items-center justify-center rounded-full bg-neutral-200 text-neutral-500"
-            >
-              <Icon name="user" size={22} />
-            </span>
+            <Suspense fallback={<span className="size-12" aria-hidden="true" />}>
+              <Show when="signed-out">
+                <ButtonLink href="/sign-in" variant="text" size="md">
+                  Sign in
+                </ButtonLink>
+                <ButtonLink href="/sign-up" size="md">
+                  Sign up
+                </ButtonLink>
+              </Show>
+              <Show when="signed-in">
+                <UserButton />
+              </Show>
+            </Suspense>
           </div>
         </header>
 
