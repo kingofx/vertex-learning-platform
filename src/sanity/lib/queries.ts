@@ -120,3 +120,30 @@ export const LESSON_SLUGS_QUERY = defineQuery(/* groq */ `
 export const INSTRUCTOR_SLUGS_QUERY = defineQuery(/* groq */ `
   *[_type == "instructor" && defined(slug.current)]{ "slug": slug.current }
 `)
+
+/** Hydrates search picks. The model only supplies slugs; everything shown comes from here. */
+export const SEARCH_LESSONS_QUERY = defineQuery(/* groq */ `
+  *[_type == "lesson" && slug.current in $slugs] {
+    _id,
+    title,
+    "slug": slug.current,
+    summary,
+    videoUrl,
+    "thumbnail": thumbnail { ${imageFields} },
+    "durationSeconds": duration,
+    keyPoints,
+    "course": *[_type == "course" && references(^._id)][0] {
+      title,
+      "slug": slug.current,
+      coverImage { ${imageFields} },
+      "modules": modules[] {
+        title,
+        "lessonSlugs": lessons[]->slug.current
+      }
+    },
+    "video": *[_type == "video" && url == ^.videoUrl][0] {
+      "chapters": chapters[] { startSeconds, label },
+      "chunkSeconds": chunks[].startSeconds
+    }
+  }
+`)
