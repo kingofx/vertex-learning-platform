@@ -24,7 +24,9 @@ export function CourseCard({
   duration,
   modules,
   href = "#",
+  large = false,
 }: {
+  large?: boolean;
   logo: ReactNode;
   title: string;
   description: string;
@@ -33,6 +35,27 @@ export function CourseCard({
   modules: number;
   href?: string;
 }) {
+  if (large) {
+    return (
+      <article className="relative flex flex-col gap-6 rounded-lg border border-neutral-100 bg-white p-6 shadow-md">
+        <div className="size-[72px] overflow-hidden rounded-lg">{logo}</div>
+        <div className="flex flex-col gap-3">
+          <h3 className="font-display text-heading-2 font-medium">
+            <Link href={href} className="after:absolute after:inset-0">
+              {title}
+            </Link>
+          </h3>
+          <p className="text-body text-neutral-500">{description}</p>
+        </div>
+        <div className="mt-auto flex flex-wrap gap-x-4 gap-y-1 border-t border-neutral-100 pt-4">
+          <Meta icon="chart">{level}</Meta>
+          <Meta icon="clock">{duration}</Meta>
+          <Meta icon="document">{modules} modules</Meta>
+        </div>
+      </article>
+    );
+  }
+
   return (
     <article className={`${shell} relative gap-4`}>
       <div className="flex size-10 items-center justify-center rounded-md bg-neutral-900 text-white">

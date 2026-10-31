@@ -19,7 +19,9 @@ export type IconName =
   | "eye"
   | "grid"
   | "target"
-  | "accessibility";
+  | "accessibility"
+  | "arrowRight"
+  | "star";
 
 type Shape = {
   /** Gets filled in the filled variant. */
@@ -134,6 +136,12 @@ const shapes: Record<IconName, Shape> = {
         <circle cx="12" cy="12" r="6" />
         <circle cx="12" cy="12" r="2" />
       </>
+    ),
+  },
+  arrowRight: { base: <path d="M5 12h14M13 6l6 6-6 6" /> },
+  star: {
+    base: (
+      <path d="m12 2.5 2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z" />
     ),
   },
   accessibility: {
