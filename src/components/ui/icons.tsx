@@ -21,7 +21,17 @@ export type IconName =
   | "target"
   | "accessibility"
   | "arrowRight"
-  | "star";
+  | "star"
+  | "layers"
+  | "database"
+  | "gauge"
+  | "cloud"
+  | "code"
+  | "shield"
+  | "rocket"
+  | "puzzle"
+  | "sparkles"
+  | "workflow";
 
 type Shape = {
   /** Gets filled in the filled variant. */
@@ -143,6 +153,68 @@ const shapes: Record<IconName, Shape> = {
     base: (
       <path d="m12 2.5 2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z" />
     ),
+  },
+  layers: {
+    base: (
+      <>
+        <path d="m12 3 9 5-9 5-9-5z" />
+        <path d="m3 12.5 9 5 9-5" />
+        <path d="m3 17 9 5 9-5" />
+      </>
+    ),
+  },
+  database: {
+    base: (
+      <>
+        <ellipse cx="12" cy="5.5" rx="8" ry="3" />
+        <path d="M4 5.5v13c0 1.66 3.58 3 8 3s8-1.34 8-3v-13" />
+      </>
+    ),
+    detail: <path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3" />,
+  },
+  gauge: {
+    base: <path d="M4.9 19.1A10 10 0 1 1 19.1 19.1" />,
+    detail: (
+      <>
+        <circle cx="12" cy="13" r="1.6" />
+        <path d="m13.2 11.8 3-3" />
+      </>
+    ),
+  },
+  cloud: {
+    base: <path d="M7 19a4.5 4.5 0 0 1-.6-8.96A6 6 0 0 1 18 9.5 4.75 4.75 0 0 1 17.5 19z" />,
+  },
+  code: { base: <path d="m8 7-5 5 5 5M16 7l5 5-5 5M14 4l-4 16" /> },
+  shield: {
+    base: <path d="M12 3 4.5 6v5.5c0 4.5 3.2 8.2 7.5 9.5 4.3-1.3 7.5-5 7.5-9.5V6z" />,
+    detail: <path d="m9 12 2 2 4-4" />,
+  },
+  rocket: {
+    base: (
+      <>
+        <path d="M5 15c-1.5 1.3-2 5-2 5s3.7-.5 5-2" />
+        <path d="M12 15 9 12a22 22 0 0 1 2-4 11.5 11.5 0 0 1 10-5c0 2.7-.8 7.3-5 11a22 22 0 0 1-4 2z" />
+      </>
+    ),
+    detail: <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />,
+  },
+  puzzle: {
+    base: (
+      <path d="M19.4 12.5H18V9a1 1 0 0 0-1-1h-3.5V6.6a2.1 2.1 0 1 0-4 0V8H6a1 1 0 0 0-1 1v3.2h1.4a2.1 2.1 0 1 1 0 4.2H5V20a1 1 0 0 0 1 1h3.6v-1.4a2.1 2.1 0 1 1 4.2 0V21H17a1 1 0 0 0 1-1v-3.5h1.4a2.1 2.1 0 1 0 0-4z" />
+    ),
+  },
+  sparkles: {
+    base: <path d="m10 3 1.8 5.2L17 10l-5.2 1.8L10 17l-1.8-5.2L3 10l5.2-1.8z" />,
+    detail: <path d="M19 14v4M17 16h4M18.5 3v3M17 4.5h3" />,
+  },
+  workflow: {
+    base: (
+      <>
+        <rect x="3" y="3" width="7" height="7" rx="1.5" />
+        <rect x="14" y="14" width="7" height="7" rx="1.5" />
+      </>
+    ),
+    detail: <path d="M6.5 10v4a3 3 0 0 0 3 3H14" />,
   },
   accessibility: {
     base: (

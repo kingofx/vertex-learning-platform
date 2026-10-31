@@ -93,7 +93,7 @@
         },
         "optional": true
       },
-      "poster": {
+      "thumbnail": {
         "type": "objectAttribute",
         "value": {
           "type": "object",
@@ -147,7 +147,7 @@
         },
         "optional": true
       },
-      "durationSeconds": {
+      "duration": {
         "type": "objectAttribute",
         "value": {
           "type": "number"
@@ -375,6 +375,10 @@
                     {
                       "type": "string",
                       "value": "download"
+                    },
+                    {
+                      "type": "string",
+                      "value": "link"
                     }
                   ]
                 },
@@ -839,7 +843,7 @@
         },
         "optional": true
       },
-      "outcomes": {
+      "learningOutcomes": {
         "type": "objectAttribute",
         "value": {
           "type": "array",
@@ -878,6 +882,18 @@
                     {
                       "type": "string",
                       "value": "rocket"
+                    },
+                    {
+                      "type": "string",
+                      "value": "puzzle"
+                    },
+                    {
+                      "type": "string",
+                      "value": "sparkles"
+                    },
+                    {
+                      "type": "string",
+                      "value": "workflow"
                     }
                   ]
                 },
@@ -901,7 +917,7 @@
                 "type": "objectAttribute",
                 "value": {
                   "type": "string",
-                  "value": "outcome"
+                  "value": "learningOutcome"
                 }
               }
             },
@@ -1126,7 +1142,10 @@
       "expertise": {
         "type": "objectAttribute",
         "value": {
-          "type": "string"
+          "type": "array",
+          "of": {
+            "type": "string"
+          }
         },
         "optional": true
       },

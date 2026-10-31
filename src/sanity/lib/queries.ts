@@ -14,7 +14,7 @@ export const COURSES_QUERY = defineQuery(/* groq */ `
     coverImage { ${imageFields} },
     "category": category->{ title, "slug": slug.current },
     "moduleCount": count(modules),
-    "durationSeconds": math::sum(modules[].lessons[]->durationSeconds)
+    "durationSeconds": math::sum(modules[].lessons[]->duration)
   }
 `)
 
@@ -29,7 +29,7 @@ export const COURSE_QUERY = defineQuery(/* groq */ `
     popular,
     studentCount,
     coverImage { ${imageFields} },
-    outcomes[] { _key, icon, title, description },
+    "outcomes": learningOutcomes[] { _key, icon, title, description },
     "instructor": instructor->{
       _id, name, "slug": slug.current, photo { ${imageFields} }, expertise
     },
@@ -38,13 +38,13 @@ export const COURSE_QUERY = defineQuery(/* groq */ `
       _key,
       title,
       summary,
-      "durationSeconds": math::sum(lessons[]->durationSeconds),
+      "durationSeconds": math::sum(lessons[]->duration),
       "lessons": lessons[]->{
-        _id, title, "slug": slug.current, summary, durationSeconds, freePreview
+        _id, title, "slug": slug.current, summary, "durationSeconds": duration, freePreview
       }
     },
     "moduleCount": count(modules),
-    "durationSeconds": math::sum(modules[].lessons[]->durationSeconds)
+    "durationSeconds": math::sum(modules[].lessons[]->duration)
   }
 `)
 
@@ -55,8 +55,8 @@ export const LESSON_QUERY = defineQuery(/* groq */ `
     "slug": slug.current,
     summary,
     videoUrl,
-    poster { ${imageFields} },
-    durationSeconds,
+    "poster": thumbnail { ${imageFields} },
+    "durationSeconds": duration,
     freePreview,
     studentCount,
     notes,
@@ -73,9 +73,9 @@ export const LESSON_QUERY = defineQuery(/* groq */ `
       "modules": modules[] {
         _key,
         title,
-        "durationSeconds": math::sum(lessons[]->durationSeconds),
+        "durationSeconds": math::sum(lessons[]->duration),
         "lessons": lessons[]->{
-          _id, title, "slug": slug.current, durationSeconds
+          _id, title, "slug": slug.current, "durationSeconds": duration
         }
       }
     }
@@ -98,7 +98,7 @@ export const INSTRUCTOR_QUERY = defineQuery(/* groq */ `
       level,
       coverImage { ${imageFields} },
       "moduleCount": count(modules),
-      "durationSeconds": math::sum(modules[].lessons[]->durationSeconds)
+      "durationSeconds": math::sum(modules[].lessons[]->duration)
     }
   }
 `)

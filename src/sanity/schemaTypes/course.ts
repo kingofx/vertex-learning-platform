@@ -70,13 +70,13 @@ export const course = defineType({
       validation: (rule) => rule.integer().min(0),
     }),
     defineField({
-      name: 'outcomes',
+      name: 'learningOutcomes',
       title: 'What you’ll learn',
       type: 'array',
       of: [
         defineArrayMember({
           type: 'object',
-          name: 'outcome',
+          name: 'learningOutcome',
           fields: [
             defineField({
               name: 'icon',
@@ -90,6 +90,9 @@ export const course = defineType({
                   { title: 'Code', value: 'code' },
                   { title: 'Shield', value: 'shield' },
                   { title: 'Rocket', value: 'rocket' },
+                  { title: 'Puzzle', value: 'puzzle' },
+                  { title: 'Sparkles', value: 'sparkles' },
+                  { title: 'Workflow', value: 'workflow' },
                 ],
               },
               validation: (rule) => rule.required(),

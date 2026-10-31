@@ -1,5 +1,5 @@
 import { UserIcon } from '@sanity/icons/User'
-import { defineField, defineType } from 'sanity'
+import { defineArrayMember, defineField, defineType } from 'sanity'
 
 export const instructor = defineType({
   name: 'instructor',
@@ -33,8 +33,9 @@ export const instructor = defineType({
     }),
     defineField({
       name: 'expertise',
-      type: 'string',
-      description: 'Short line, for example "Full-stack web development".',
+      type: 'array',
+      of: [defineArrayMember({ type: 'string' })],
+      description: 'Topics they teach, for example "React".',
     }),
     defineField({ name: 'bio', type: 'text', rows: 5 }),
   ],
