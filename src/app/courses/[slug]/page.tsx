@@ -2,10 +2,13 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
+import {
+  CourseActions,
+  CourseViewed,
+} from "@/components/course/course-analytics";
 import { ModuleList } from "@/components/course/module-list";
 import { SiteFrame } from "@/components/site-header";
 import { Badge } from "@/components/ui/badge";
-import { Button, ButtonLink } from "@/components/ui/button";
 import { Icon, type IconName } from "@/components/ui/icons";
 import { Breadcrumbs } from "@/components/ui/navigation";
 import { formatCount, formatDuration, formatLevel } from "@/lib/format";
@@ -77,6 +80,11 @@ async function Course({ params }: Pick<PageProps<"/courses/[slug]">, "params">) 
   return (
     <>
       <main className="relative z-10 flex flex-col gap-10 px-5 pt-6 pb-16 sm:px-10 sm:pb-24">
+        <CourseViewed
+          courseSlug={slug}
+          level={course.level}
+          moduleCount={course.moduleCount}
+        />
         <Breadcrumbs
           items={[
             { label: "All Courses", href: "/" },
@@ -113,27 +121,10 @@ async function Course({ params }: Pick<PageProps<"/courses/[slug]">, "params">) 
               <Meta icon="document">{course.moduleCount} modules</Meta>
               <Meta icon="user">{formatCount(course.studentCount)} students</Meta>
             </div>
-            <div className="flex flex-wrap gap-3">
-              {firstLesson && (
-                <ButtonLink
-                  href={`/lessons/${firstLesson.slug}`}
-                  size="lg"
-                  className="h-14 px-6 shadow-md"
-                  icon={<Icon name="arrowRight" size={20} />}
-                >
-                  Start Learning
-                </ButtonLink>
-              )}
-              <Button
-                variant="tertiary"
-                size="lg"
-                className="h-14 px-6"
-                icon={<Icon name="bookmark" size={20} />}
-                iconPosition="start"
-              >
-                Bookmark
-              </Button>
-            </div>
+            <CourseActions
+              courseSlug={slug}
+              firstLessonSlug={firstLesson?.slug ?? undefined}
+            />
           </div>
         </section>
 

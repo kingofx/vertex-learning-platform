@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { TrackedCourseLink } from "@/components/course/tracked-course-link";
 import { Badge } from "./badge";
 import { ButtonLink } from "./button";
 import { Icon, type IconName } from "./icons";
@@ -41,9 +42,13 @@ export function CourseCard({
         <div className="size-[72px] overflow-hidden rounded-lg">{logo}</div>
         <div className="flex flex-col gap-3">
           <h3 className="font-display text-heading-2 font-medium">
-            <Link href={href} className="after:absolute after:inset-0">
+            <TrackedCourseLink
+              href={href}
+              level={level}
+              moduleCount={modules}
+            >
               {title}
-            </Link>
+            </TrackedCourseLink>
           </h3>
           <p className="text-body text-neutral-500">{description}</p>
         </div>
@@ -63,9 +68,13 @@ export function CourseCard({
       </div>
       <div className="flex flex-col gap-1">
         <h3 className="text-body-lg font-semibold">
-          <Link href={href} className="after:absolute after:inset-0">
+          <TrackedCourseLink
+            href={href}
+            level={level}
+            moduleCount={modules}
+          >
             {title}
-          </Link>
+          </TrackedCourseLink>
         </h3>
         <p className="text-body text-neutral-500">{description}</p>
       </div>
