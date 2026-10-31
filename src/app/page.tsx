@@ -1,14 +1,11 @@
-import { Show, UserButton } from "@clerk/nextjs";
-import Link from "next/link";
-import { Suspense } from "react";
 import { CourseCard } from "@/components/ui/cards";
 import {
   DockerLogo,
   NextLogo,
   TypeScriptLogo,
 } from "@/components/ui/course-logos";
+import { SiteFrame } from "@/components/site-header";
 import { Icon } from "@/components/ui/icons";
-import { Logo } from "@/components/ui/logo";
 import { ButtonLink } from "@/components/ui/button";
 
 // Placeholder data until the Sanity course model exists.
@@ -56,53 +53,7 @@ const bars = [
 
 export default function Home() {
   return (
-    <div
-      className="flex-1 bg-page"
-      style={{
-        backgroundImage:
-          "repeating-linear-gradient(135deg, transparent 0 5px, rgba(234,88,12,0.05) 5px 6px)",
-      }}
-    >
-      <div className="relative mx-auto flex min-h-screen w-full max-w-[1200px] flex-col overflow-hidden border-x border-neutral-100 bg-page">
-        <header className="flex items-center justify-between border-b border-neutral-100 px-5 py-4 sm:px-10">
-          <nav aria-label="Main" className="flex items-center gap-5 sm:gap-10">
-            <Logo />
-            <ul className="flex items-center gap-4 sm:gap-8">
-              <li>
-                <Link href="/" aria-current="page" className="text-body">
-                  Courses
-                </Link>
-              </li>
-              <li>
-                <Link href="/" className="text-body">
-                  My Learning
-                </Link>
-              </li>
-            </ul>
-          </nav>
-          <div className="flex items-center gap-5">
-            <button
-              type="button"
-              aria-label="Notifications"
-              className="text-neutral-900"
-            >
-              <Icon name="bell" size={22} />
-            </button>
-            <Suspense fallback={<span className="size-12" aria-hidden="true" />}>
-              <Show when="signed-out">
-                <ButtonLink href="/sign-in" variant="text" size="md">
-                  Sign in
-                </ButtonLink>
-                <ButtonLink href="/sign-up" size="md">
-                  Sign up
-                </ButtonLink>
-              </Show>
-              <Show when="signed-in">
-                <UserButton />
-              </Show>
-            </Suspense>
-          </div>
-        </header>
+    <SiteFrame current="courses">
 
         <main className="relative z-10 flex flex-1 flex-col">
           <section className="flex flex-col items-center border-b border-neutral-100 px-5 pt-14 pb-14 text-center sm:px-10 sm:pt-16">
@@ -183,7 +134,6 @@ export default function Home() {
             ))}
           </div>
         </main>
-      </div>
-    </div>
+    </SiteFrame>
   );
 }
